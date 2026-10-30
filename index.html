@@ -1,36 +1,628 @@
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CareShop - Online Shopping Store</title>
+
+<style>
+
+/* GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* HEADER */
+header {
+    background: #222;
+    color: white;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ff9800;
+    letter-spacing: 1px;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* NAVIGATION */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 12px 8px;
+}
+
+nav a:hover {
+    color: orange;
+}
+
+/* DROPDOWN */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333;
+    min-width: 190px;
+    z-index: 1000;
+}
+
+nav li:hover > .dropdown,
+nav li:focus-within > .dropdown {
+    display: block;
+}
+
+.dropdown li {
+    position: relative;
+}
+
+.dropdown li a {
+    border-bottom: 1px solid #444;
+}
+
+/* SUBMENU */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 180px;
+    background: #444;
+}
+
+.dropdown li:hover > .submenu,
+.dropdown li:focus-within > .submenu {
+    display: block;
+}
+
+/* SEARCH AND CART */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 160px;
+}
+
+.cart {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(120deg, #222, #777);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+.shop-btn {
+    background: #ff9800;
+    color: white;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.shop-btn:hover {
+    background: #e67e00;
+}
+
+/* SECTIONS */
+.section {
+    padding: 50px 5%;
+}
+
+.section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+/* PRODUCT GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.product-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px #ddd;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-card h3 {
+    margin: 15px 0 8px;
+}
+
+.price {
+    color: #e67e22;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 18px;
+}
+
+/* ORDER NOW */
+.order-btn {
+    display: inline-block;
+    background: #ff9800;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.order-btn:hover {
+    background: #222;
+}
+
+/* ABOUT */
+.about {
+    background: white;
+    text-align: center;
+    line-height: 1.8;
+}
+
+/* CONTACT */
+.contact {
+    text-align: center;
+    line-height: 2;
+}
+
+/* FOOTER */
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+/* TABLET AND MOBILE */
+@media(max-width: 1000px) {
+
+    header {
+        justify-content: space-between;
+    }
+
+    .menu-btn {
+        display: block;
+        margin-left: auto;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        order: 3;
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav a {
+        border-top: 1px solid #444;
+    }
+
+    .dropdown,
+    .submenu {
+        display: none;
+        position: static;
+        width: 100%;
+        background: #333;
+        padding-left: 15px;
+    }
+
+    nav li.open > .dropdown,
+    .dropdown li.open > .submenu {
+        display: block;
+    }
+
+    nav li:hover > .dropdown,
+    .dropdown li:hover > .submenu {
+        display: none;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-right {
+        width: 100%;
+    }
+
+    .search {
+        flex: 1;
+    }
+}
+
+@media(max-width: 550px) {
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .section h2 {
+        font-size: 24px;
+    }
+}
+
+</style>
+</head>
+
 <body>
-<img src="banner.png" width=1250 height=200></img>
-<table border="0">
-<tr>
-<td><a href="home.html"><img src="m1.png" width=205 height=50></img></td>
-<td><a href="pizza.html"><img src="m2.png" width=205 height=50></img></td>
-<td><a href="burger.html"><img src="m3.png" width=205 height=50></img></td>
-<td><a href="desert.html"><img src="m4.png" width=205 height=50></img></td>
-<td><a href="drinks.html"><img src="m5.png" width=205 height=50></img></td>
-<td><a href="sandwich.html"><img src="m6.png" width=205 height=50></img></td>
-</tr>
-</table>
-<marquee direction="right">
-<img src="ham burger.png" width=200 height=200></h1>
-<img src="chees.png" width=200 height=200></h1>
-<img src="deserts.png" width=200 height=200></h1>
-<img src="drinks.png" width=200 height=200></h1>
-<img src="sandwich.png" width=200 height=200></h1>
-</marquee>
-</tr>
-</table>
-<center><h1 style="background-color:tomato">Welcome to Testy Bites Food Bank 🍴</h1>
 
-<p style="background-color:yellow">Welcome to Testy Bites Food Bank, where delicious food meets great taste! Explore our menu and discover a variety of fresh, tasty, and satisfying dishes prepared with care.
+<!-- HEADER -->
+<header>
 
-Whether you're looking for a quick bite or a delicious meal, we're happy to serve you. Choose your favorite, place your order, and enjoy every bite!
+    <div class="logo">CareShop</div>
 
-Thank you for visiting Testy Bites Food Bank. We hope you enjoy our food!</p>
+    <button class="menu-btn" id="menuBtn"
+    aria-label="Open menu" aria-expanded="false">☰</button>
 
-</center>
+    <!-- NAVIGATION MENU -->
+    <nav id="navbar">
 
+        <ul>
 
+            <li>
+                <a href="index.html">Home</a>
+            </li>
 
+            <!-- COLLECTIONS -->
+            <li>
+                <a href="#products">Collections ▾</a>
+
+                <ul class="dropdown">
+
+                    <li><a href="#new">New Arrivals</a></li>
+                    <li><a href="#men">Men Collection</a></li>
+                    <li><a href="#women">Women Collection</a></li>
+                    <li><a href="#kids">Kids Collection</a></li>
+                    <li><a href="#sale">Sale Collection</a></li>
+
+                </ul>
+            </li>
+
+            <!-- PRODUCTS -->
+            <li>
+                <a href="#products">Products ▾</a>
+
+                <ul class="dropdown">
+
+                    <li>
+                        <a href="#shirts">Clothing ▸</a>
+
+                        <ul class="submenu">
+                            <li><a href="#shirts">Shirts</a></li>
+                            <li><a href="#tshirts">T-Shirts</a></li>
+                            <li><a href="#jeans">Jeans</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#mobiles">Electronics ▸</a>
+
+                        <ul class="submenu">
+                            <li><a href="#mobiles">Mobiles</a></li>
+                            <li><a href="#laptops">Laptops</a></li>
+                            <li><a href="#accessories">Accessories</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#menshoes">Shoes ▸</a>
+
+                        <ul class="submenu">
+                            <li><a href="#menshoes">Men Shoes</a></li>
+                            <li><a href="#womenshoes">Women Shoes</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li><a href="#sale">Offers</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+    </nav>
+
+    <!-- SEARCH AND CART -->
+    <div class="header-right">
+
+        <input type="search" class="search"
+        id="searchBox" placeholder="Search products...">
+
+        <a href="#cart" class="cart">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </a>
+
+    </div>
+
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+
+    <h1>Welcome to CareShop</h1>
+
+    <p>Discover Quality Products at Affordable Prices</p>
+
+    <a href="#products" class="shop-btn">Shop Now</a>
+
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section class="section" id="products">
+
+    <h2>Our Products</h2>
+
+    <div class="product-grid" id="productGrid">
+
+        <!-- PRODUCT 1 -->
+        <div class="product-card" data-name="Men Shirt">
+
+            <a href="https://wa.me/923001234567" target="_blank">
+                <img src="https://placehold.co/300x200?text=Men+Shirt"
+                alt="Men Shirt">
+            </a>
+
+            <h3>Men Shirt</h3>
+            <p class="price">Rs. 1500</p>
+
+            <a href="https://wa.me/923001234567"
+            target="_blank" class="order-btn">Order Now</a>
+
+        </div>
+
+        <!-- PRODUCT 2 -->
+        <div class="product-card" data-name="Women Dress">
+
+            <a href="https://wa.me/923001234567" target="_blank">
+                <img src="https://placehold.co/300x200?text=Women+Dress"
+                alt="Women Dress">
+            </a>
+
+            <h3>Women Dress</h3>
+            <p class="price">Rs. 2500</p>
+
+            <a href="https://wa.me/923001234567"
+            target="_blank" class="order-btn">Order Now</a>
+
+        </div>
+
+        <!-- PRODUCT 3 -->
+        <div class="product-card" data-name="Smart Mobile">
+
+            <a href="https://wa.me/923001234567" target="_blank">
+                <img src="https://placehold.co/300x200?text=Mobile"
+                alt="Smart Mobile">
+            </a>
+
+            <h3>Smart Mobile</h3>
+            <p class="price">Rs. 25000</p>
+
+            <a href="https://wa.me/923001234567"
+            target="_blank" class="order-btn">Order Now</a>
+
+        </div>
+
+        <!-- PRODUCT 4 -->
+        <div class="product-card" data-name="Sports Shoes">
+
+            <a href="https://wa.me/923001234567" target="_blank">
+                <img src="https://placehold.co/300x200?text=Shoes"
+                alt="Sports Shoes">
+            </a>
+
+            <h3>Sports Shoes</h3>
+            <p class="price">Rs. 3500</p>
+
+            <a href="https://wa.me/923001234567"
+            target="_blank" class="order-btn">Order Now</a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SHOPPING CART -->
+<section class="section" id="cart">
+
+    <h2>Shopping Cart</h2>
+
+    <p style="text-align:center">
+        Total Items: <span id="totalItems">0</span>
+    </p>
+
+</section>
+
+<!-- ABOUT US -->
+<section class="section about" id="about">
+
+    <h2>About CareShop</h2>
+
+    <p>
+        Welcome to CareShop, your online shopping destination.
+        Explore quality products, attractive prices and convenient shopping.
+        We aim to make your online shopping experience simple and easy.
+    </p>
+
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+
+    <h2>Contact CareShop</h2>
+
+    <p>Email: info@careshop.com</p>
+    <p>WhatsApp: +92 300 1234567</p>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <p>© 2026 CareShop. All Rights Reserved.</p>
+
+</footer>
+
+<script>
+
+/* MOBILE MENU */
+
+const menuBtn = document.getElementById("menuBtn");
+const navbar = document.getElementById("navbar");
+
+menuBtn.addEventListener("click", function() {
+
+    navbar.classList.toggle("active");
+
+    menuBtn.setAttribute(
+        "aria-expanded",
+        navbar.classList.contains("active")
+    );
+
+});
+
+/* MOBILE DROPDOWN */
+
+document.querySelectorAll("nav li > a").forEach(function(link) {
+
+    link.addEventListener("click", function(event) {
+
+        if (window.innerWidth <= 1000) {
+
+            const parent = this.parentElement;
+            const childMenu = parent.querySelector(":scope > ul");
+
+            if (childMenu) {
+
+                event.preventDefault();
+                parent.classList.toggle("open");
+
+            }
+
+        }
+
+    });
+
+});
+
+/* PRODUCT SEARCH */
+
+document.getElementById("searchBox")
+.addEventListener("input", function() {
+
+    let searchValue = this.value.toLowerCase();
+
+    document.querySelectorAll(".product-card").forEach(function(card) {
+
+        let productName = card.dataset.name.toLowerCase();
+
+        card.style.display = productName.includes(searchValue)
+            ? "block"
+            : "none";
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
